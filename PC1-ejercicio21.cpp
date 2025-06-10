@@ -15,16 +15,16 @@ int main() {
     for(int i = 0; i < n-1; i++) {
         for(int j = 0; j < n-1-i; j++) {
             if(a[j] > a[j+1]) {
-                double temp = a[j];
+                double temporal = a[j];
                 a[j] = a[j+1];
-                a[j+1] = temp;
+                a[j+1] = temporal;
             }
         }
     }
 
     printf("\nLista ordenada:\n");
     for(int i = 0; i < n; i++) {
-        printf("%.6lf\n", a[i]);
+        printf("%.2lf\n", a[i]);
     }
 
     return 0;

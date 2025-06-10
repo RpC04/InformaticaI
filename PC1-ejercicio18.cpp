@@ -5,9 +5,9 @@ int main() {
 
     printf("Ingrese los elementos de u y v uno a uno:\n");
     for(int i = 0; i < 3; i++) {
-        printf("u[%d]: ", i+1);
+        printf("u[%d]: ", i);
         scanf("%lf", &u[i]);
-        printf("v[%d]: ", i+1);
+        printf("v[%d]: ", i);
         scanf("%lf", &v[i]);
     }
 
@@ -16,8 +16,8 @@ int main() {
     w[2] = u[0]*v[1] - u[1]*v[0];
 
     printf("\nEl producto vectorial u x v es:\n");
-    printf("w[1] = %.6lf\n", w[0]);
-    printf("w[2] = %.6lf\n", w[1]);
-    printf("w[3] = %.6lf\n", w[2]);
+    printf("w[1] = %.2lf\n", w[0]);
+    printf("w[2] = %.2lf\n", w[1]);
+    printf("w[3] = %.2lf\n", w[2]);
     return 0;
 }

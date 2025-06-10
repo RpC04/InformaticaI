@@ -7,39 +7,41 @@ int main() {
     scanf("%d", &n);
 
     double u[n], v[n];
-    double producto = 0.0, norma_u = 0.0, norma_v = 0.0;
+    double producto = 0, normaU = 0, normaV = 0;
     double x, y;
 
     printf("Ingrese los elementos de u y v uno a uno:\n");
     for(int i = 0; i < n; i++) {
-        printf("u[%d]: ", i+1);
+        printf("u[%d]: ", i);
         scanf("%lf", &x);
         u[i] = x;
-        printf("v[%d]: ", i+1);
+        printf("v[%d]: ", i);
         scanf("%lf", &y);
         v[i] = y;
 
         producto += x * y;
-        norma_u += x * x;
-        norma_v += y * y;
+        normaU += x * x;
+        normaV += y * y;
     }
 
-    norma_u = sqrt(norma_u);
-    norma_v = sqrt(norma_v);
+    normaU = sqrt(normaU);
+    normaV = sqrt(normaV);
 
-    if(norma_u == 0 || norma_v == 0) {
+    if(normaU == 0 || normaV == 0) {
         printf("\nUno de los vectores es el vector nulo. No se puede calcular el angulo.\n");
         return 0;
     }
 
-    double coseno = producto / (norma_u * norma_v);
+    double coseno = producto / (normaU * normaV);
 
-    if(coseno > 1.0) coseno = 1.0;
-    if(coseno < -1.0) coseno = -1.0;
+    if(coseno > 1)
+        coseno = 1;
+    else if(coseno < -1)
+        coseno = -1;
 
-    double angulo_rad = acos(coseno);
-    double angulo_deg = angulo_rad * 180.0 / M_PI;
+    double anguloRad = acos(coseno);
+    double anguloDeg = anguloRad * 180 / M_PI;
 
-    printf("\nEl angulo entre u y v es: %.6lf radianes o %.6lf grados\n", angulo_rad, angulo_deg);
+    printf("\nEl angulo entre u y v es: %.2lf radianes o %.2lf grados\n", anguloRad, anguloDeg);
     return 0;
 }

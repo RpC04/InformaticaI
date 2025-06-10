@@ -2,7 +2,7 @@
 #include <math.h>
 
 int main() {
-    double A, B, C, x0, y0, distancia;
+    double A, B, C, x0, y0;
 
     printf("Ingrese los coeficientes de la recta Ax + By + C = 0:\n");
     printf("A: ");
@@ -18,8 +18,8 @@ int main() {
     printf("y0: ");
     scanf("%lf", &y0);
 
-    distancia = fabs(A * x0 + B * y0 + C) / sqrt(A * A + B * B);
+    double distancia = fabs(A * x0 + B * y0 + C) / sqrt(A * A + B * B);
 
-    printf("\nLa distancia entre el punto y la recta es: %.6lf\n", distancia);
+    printf("\nLa distancia entre el punto y la recta es: %.2lf\n", distancia);
     return 0;
 }

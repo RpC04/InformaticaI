@@ -11,11 +11,11 @@ int main() {
     for(int i=0; i<n; i++) {
         for(int j=0; j<=n; j++) {
             if(j == n) {
-                printf("b[%d]: ", i+1);
+                printf("b[%d]: ", i);
                 scanf("%lf", &A[i][j]);
                 printf("\n");
             } else {
-                printf("A[%d][%d]: ", i+1, j+1);
+                printf("A[%d][%d]: ", i, j);
                 scanf("%lf", &A[i][j]);
             }
 
@@ -29,15 +29,15 @@ int main() {
 
         for(int k=0; k<n; k++) {
             if(k != i) {
-                double mult = A[k][i];
+                double factMultiplicador = A[k][i];
                 for(int j=0; j<=n; j++)
-                    A[k][j] -= mult * A[i][j];
+                    A[k][j] -= factMultiplicador * A[i][j];
             }
         }
     }
 
     printf("\nSolucion del sistema:\n");
     for(int i=0; i<n; i++)
-        printf("x%d = %.6lf\n", i+1, A[i][n]);
+        printf("x%d = %.2lf\n", i+1, A[i][n]);
     return 0;
 }

@@ -25,8 +25,8 @@ int main() {
         double x = detX / det;
         double y = detY / det;
         printf("\nSolucion:\n");
-        printf("x = %.4lf\n", x);
-        printf("y = %.4lf\n", y);
+        printf("x = %.2lf\n", x);
+        printf("y = %.2lf\n", y);
     } else {
         if(detX == 0 && detY == 0) {
             printf("\nEl sistema tiene infinitas soluciones.\n");

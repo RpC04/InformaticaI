@@ -6,17 +6,15 @@ int main() {
     scanf("%d", &n);
 
     double u[n], v[n], proy[n];
-    double producto_uv = 0.0, producto_vv = 0.0, escalar;
+    double producto_uv = 0, producto_vv = 0;
 
     printf("Ingrese los elementos de u y v uno a uno:\n");
     for(int i = 0; i < n; i++) {
-        printf("u[%d]: ", i+1);
+        printf("u[%d]: ", i);
         scanf("%lf", &u[i]);
-        printf("v[%d]: ", i+1);
+        printf("v[%d]: ", i);
         scanf("%lf", &v[i]);
-    }
 
-    for(int i = 0; i < n; i++) {
         producto_uv += u[i] * v[i];
         producto_vv += v[i] * v[i];
     }
@@ -26,12 +24,12 @@ int main() {
         return 0;
     }
 
-    escalar = producto_uv / producto_vv;
+    double escalar = producto_uv / producto_vv;
 
     printf("\nLa proyeccion ortogonal de u sobre v es:\n");
     for(int i = 0; i < n; i++) {
         proy[i] = escalar * v[i];
-        printf("proy[%d] = %.6lf\n", i+1, proy[i]);
+        printf("proy[%d] = %.2lf\n", i, proy[i]);
     }
     return 0;
 }
