@@ -6,14 +6,14 @@ int main() {
     printf("Ingrese los coeficientes de la matriz A (2x2):\n");
     for(int i = 0; i < 2; i++) {
         for(int j = 0; j < 2; j++) {
-            printf("A[%d][%d]:", i+1, j+1);
+            printf("A[%d][%d]:", i, j);
             scanf("%lf", &a[i][j]);
         }
     }
 
     printf("\nIngrese el vector b:\n");
     for(int i = 0; i < 2; i++) {
-        printf("b[%d]:", i+1);
+        printf("b[%d]:", i);
         scanf("%lf", &b[i]);
     }
 

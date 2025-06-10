@@ -3,15 +3,15 @@
 int main() {
     int filA, colA, filB, colB;
 
-    printf("Ingrese la cantidad de filas y columnas separadas por un espacio");
-    printf("\nFilas A:");
+    printf("Ingrese la cantidad de filas y columnas");
+    printf("\nFilas A: ");
     scanf("%d", &filA);
-    printf("Columnas A:");
+    printf("Columnas A: ");
     scanf("%d", &colA);
 
-    printf("\nFilas B:");
+    printf("\nFilas B: ");
     scanf("%d", &filB);
-    printf("Columnas B:");
+    printf("Columnas B: ");
     scanf("%d", &colB);
 
     if (colA == filB) {
@@ -19,7 +19,7 @@ int main() {
         double b[filB][colB];
         double c[filA][colB] = {};
 
-        printf("Ingrese los elementos de la matriz A y B:\n");
+        printf("Ingrese los elementos de la matriz A:\n");
         for (int i = 0; i < filA; i++) {
             for (int j = 0; j < colA; j++) {
                 printf("a[%d][%d]:", i, j);
@@ -30,7 +30,7 @@ int main() {
         printf("Ingrese los elementos de la matriz B:\n");
         for (int i = 0; i < filB; i++) {
             for (int j = 0; j < colB; j++) {
-                printf("b[%d][%d]:", i+1, j+1);
+                printf("b[%d][%d]:", i, j);
                 scanf("%lf", &b[i][j]);
             }
         }
@@ -43,7 +43,7 @@ int main() {
             }
         }
 
-        printf("Producto de las matrices:\n");
+        printf("\nProducto de las matrices:\n");
         for (int i = 0; i < filA; i++) {
             printf("[");
             for (int j = 0; j < colB; j++) {
@@ -52,10 +52,8 @@ int main() {
             printf("\n");
         }
     } else {
-        printf("Dimensiones incompatibles para multiplicacion.\n");
+        printf("\nDimensiones incompatibles para multiplicacion.\n");
     }
-
-
 
     return 0;
 }

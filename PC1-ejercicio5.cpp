@@ -3,23 +3,22 @@
 int main() {
     double n1, n2, n3;
 
-    printf("Ingrese el coeficiente n1 (x^3): ");
-    scanf("%lf", &n1);
-    printf("Ingrese el coeficiente n2 (x^2): ");
-    scanf("%lf", &n2);
-    printf("Ingrese el coeficiente n3 (x): ");
-    scanf("%lf", &n3);
+    int n;
+    printf("Ingrese el número de coeficientes: ");
+    scanf("%d", &n);
 
-    int e1 = 3;
-    int e2 = 2;
-    int e3 = 1;
+    double coeficientes[n], derivada[n-1];
 
-    double d1 = n1 * e1;
-    double d2 = n2 * e2;
-    double d3 = n3 * e3;
+    for(int i = 0; i < n; i++) {
+        printf("Ingrese el coeficiente n%d: ", i);
+        scanf("%lf", &coeficientes[i]);
+    }
 
-    printf("\nLa derivada es:\n");
-    printf("%.2lfx^2 + %.2lfx + %.2lf\n", d1, d2, d3);
+    printf("La derivada de la funcion polinomica ingresada es: "); 
+    for (int i = 0; i < n-1; i++) {
+        derivada[i] = coeficientes[i] * (n - i - 1);
+        printf("%.2lf x^%d +\t", derivada[i], n-i-1);
+    }
 
     return 0;
 }
