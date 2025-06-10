@@ -1,25 +1,21 @@
 #include <stdio.h>
 
 int main() {
-    double n1, n2, n3;
+    int numTerm;
+    double x, resultado = 1, termSuce = 1;
 
-    printf("Ingrese el coeficiente n1 (x^3): ");
-    scanf("%lf", &n1);
-    printf("Ingrese el coeficiente n2 (x^2): ");
-    scanf("%lf", &n2);
-    printf("Ingrese el coeficiente n3 (x): ");
-    scanf("%lf", &n3);
+    printf("Ingrese el valor de x: ");
+    scanf("%lf", &x);
 
-    int e1 = 3;
-    int e2 = 2;
-    int e3 = 1;
+    printf("\nIngrese el numero de terminos n: ");
+    scanf("%d", &numTerm);
 
-    double d1 = n1 * e1;
-    double d2 = n2 * e2;
-    double d3 = n3 * e3;
+    for (int i = 1; i < numTerm; i++) {
+        termSuce = termSuce * x / i;
+        resultado += termSuce;
+    }
 
-    printf("\nLa derivada es:\n");
-    printf("%.2lfx^2 + %.2lfx + %.2lf\n", d1, d2, d3);
+    printf("\nAproximacion de e^%lf usando %d termSuces: %lf\n", x, numTerm, resultado);
 
     return 0;
 }

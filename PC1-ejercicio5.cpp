@@ -1,34 +1,25 @@
 #include <stdio.h>
 
 int main() {
-    double a[2][2], b[2][2];
+    double n1, n2, n3;
 
-    printf("Ingrese los elementos de la matriz A 2x2:\n");
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            printf("A[%d][%d]:", i, j);
-            scanf("%lf", &a[i][j]);
-        }
-    }
+    printf("Ingrese el coeficiente n1 (x^3): ");
+    scanf("%lf", &n1);
+    printf("Ingrese el coeficiente n2 (x^2): ");
+    scanf("%lf", &n2);
+    printf("Ingrese el coeficiente n3 (x): ");
+    scanf("%lf", &n3);
 
-    double det = a[0][0] * a[1][1] - a[0][1] * a[1][0];
+    int e1 = 3;
+    int e2 = 2;
+    int e3 = 1;
 
-    if(det != 0) {
-        b[0][0] =  a[1][1]/det;
-        b[0][1] = -a[0][1]/det;
-        b[1][0] = -a[1][0]/det;
-        b[1][1] =  a[0][0]/det;
+    double d1 = n1 * e1;
+    double d2 = n2 * e2;
+    double d3 = n3 * e3;
 
-        printf("\nLa matriz inversa es:\n");
-        for(int i = 0; i < 2; i++) {
-            printf("[");
-            for(int j = 0; j < 2; j++) {
-                printf("%.4lf ", b[i][j]);
-            }
-            printf("]\n");
-        }
-    } else {
-        printf("\nNo es posible calcular la inversa (determinante = 0).");
-    }
+    printf("\nLa derivada es:\n");
+    printf("%.2lfx^2 + %.2lfx + %.2lf\n", d1, d2, d3);
+
     return 0;
 }

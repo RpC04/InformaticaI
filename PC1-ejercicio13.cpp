@@ -1,61 +1,21 @@
 #include <stdio.h>
 
 int main() {
-    int filA, colA, filB, colB;
+    int n;
+    printf("Ingrese la dimension del espacio n: ");
+    scanf("%d", &n);
 
-    printf("Ingrese la cantidad de filas y columnas separadas por un espacio");
-    printf("\nFilas A:");
-    scanf("%d", &filA);
-    printf("Columnas A:");
-    scanf("%d", &colA);
+    double producto = 0.0, u, v;
 
-    printf("\nFilas B:");
-    scanf("%d", &filB);
-    printf("Columnas B:");
-    scanf("%d", &colB);
-
-    if (colA == filB) {
-        double a[filA][colA];
-        double b[filB][colB];
-        double c[filA][colB] = {};
-
-        printf("Ingrese los elementos de la matriz A y B:\n");
-        for (int i = 0; i < filA; i++) {
-            for (int j = 0; j < colA; j++) {
-                printf("a[%d][%d]:", i, j);
-                scanf("%lf", &a[i][j]);
-            }
-        }
-
-        printf("Ingrese los elementos de la matriz B:\n");
-        for (int i = 0; i < filB; i++) {
-            for (int j = 0; j < colB; j++) {
-                printf("b[%d][%d]:", i+1, j+1);
-                scanf("%lf", &b[i][j]);
-            }
-        }
-
-        for (int i = 0; i < filA; i++) {
-            for (int j = 0; j < colB; j++) {
-                for (int k = 0; k < colA; k++) {
-                    c[i][j] += a[i][k] * b[k][j];
-                }
-            }
-        }
-
-        printf("Producto de las matrices:\n");
-        for (int i = 0; i < filA; i++) {
-            printf("[");
-            for (int j = 0; j < colB; j++) {
-                printf("%.2lf", c[i][j]);
-            }printf("]");
-            printf("\n");
-        }
-    } else {
-        printf("Dimensiones incompatibles para multiplicacion.\n");
+    printf("Ingrese los elementos de ambos vectores (u y v) uno a uno:\n");
+    for(int i = 0; i < n; i++) {
+        printf("u[%d]: ", i+1);
+        scanf("%lf", &u);
+        printf("v[%d]: ", i+1);
+        scanf("%lf", &v);
+        producto += u * v;
     }
 
-
-
+    printf("\nEl producto punto de u y v es: %.6lf\n", producto);
     return 0;
 }

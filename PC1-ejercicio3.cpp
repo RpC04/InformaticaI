@@ -1,33 +1,54 @@
 #include <stdio.h>
 
 int main() {
-    double v[2], a[2][2];
-    double w[2] = {};
+    int m, n, rango;
+    printf("Ingrese numero de filas: ");
+    scanf("%d", &m);
+    printf("Ingrese numero de columnas: ");
+    scanf("%d", &n);
 
-    printf("Ingrese el vector de 2 dimensiones:\n");
-    for(int i = 0; i < 2; i++) {
-        printf("v[%d]:", i);
-        scanf("%lf", &v[i]);
-    }
+    double A[m][n];
 
-    printf("\nIngrese la matriz A (2x2):\n");
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            printf("A[%d][%d]:", i, j);
-            scanf("%lf", &a[i][j]);
+    printf("Ingrese los elementos de la matriz A %dx%d:\n", m, n);
+    for(int i=0; i<m; i++) {
+        for(int j=0; j<n; j++) {
+            printf("A[%d][%d]: ", i+1, j+1);
+            scanf("%lf", &A[i][j]);
         }
     }
 
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            w[i] = w[i] + a[i][j] * v[j];
+    rango = n;
+    for(int i=0; i<rango; i++) {
+        if(A[i][i]) {
+            for(int j=0; j<m; j++) {
+                if(j != i) {
+                    double mult = A[j][i] / A[i][i];
+                    for(int k=0; k<rango; k++)
+                        A[j][k] -= mult * A[i][k];
+                }
+            }
+        } else {
+            int reduce = 1;
+            for(int j=i+1; j<m; j++) {
+                if(A[j][i]) {
+                    for(int k=0; k<rango; k++) {
+                        double tmp = A[i][k];
+                        A[i][k] = A[j][k];
+                        A[j][k] = tmp;
+                    }
+                    reduce = 0;
+                    break;
+                }
+            }
+            if(reduce) {
+                rango--;
+                for(int j=0; j<m; j++)
+                    A[j][i] = A[j][rango];
+            }
+            i--;
         }
     }
 
-    printf("\nEl vecto w es:\n");
-    for(int i = 0; i < 2; i++) {
-        printf("w[%d]: %.2lf\n", i, w[i]);
-    }
-
+    printf("\nEl rango de la matriz es: %d\n", rango);
     return 0;
 }

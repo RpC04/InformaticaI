@@ -1,18 +1,28 @@
 #include <stdio.h>
 
 int main() {
-    double a[2][2];
+    double a[3][3], b[3][3], c[3][3];
 
-    printf("Ingreso a la matriz A 2x2:\n");
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            printf("Elemento [%d][%d]:", i, j);
+    printf("Ingrese los elementos de las matrices A y B:\n");
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            printf("\n------ Fila %d, Columna %d ------\n", i, j);
+            printf("A[%d][%d]:", i, j);
             scanf("%lf", &a[i][j]);
+            printf("B[%d][%d]:", i, j);
+            scanf("%lf", &b[i][j]);
+            c[i][j] = a[i][j] + b[i][j];
         }
     }
 
-    double det = a[0][0] * a[1][1] - a[0][1] * a[1][0];
-    printf("\nEl determinante de A es: %.2lf\n", det);
+    printf("\nLa matriz suma C es:\n");
+    for(int i = 0; i < 3; i++) {
+        printf("[");
+        for(int j = 0; j < 3; j++) {
+            printf("%.2lf ", c[i][j]);
+        }
+        printf("]\n");
+    }
 
     return 0;
 }

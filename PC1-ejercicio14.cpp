@@ -1,21 +1,31 @@
 #include <stdio.h>
+#include <math.h>
 
 int main() {
-    int numTerm;
-    double x, resultado = 1, termSuce = 1;
+    int n;
+    printf("Ingrese la dimension del vector n: ");
+    scanf("%d", &n);
 
-    printf("Ingrese el valor de x: ");
-    scanf("%lf", &x);
+    double x, norma1 = 0.0, norma2 = 0.0, normainf = 0.0, absx;
 
-    printf("\nIngrese el numero de terminos n: ");
-    scanf("%d", &numTerm);
+    printf("Ingrese los elementos del vector:\n");
+    for(int i = 0; i < n; i++) {
+        printf("x[%d]: ", i+1);
+        scanf("%lf", &x);
 
-    for (int i = 1; i < numTerm; i++) {
-        termSuce = termSuce * x / i;
-        resultado += termSuce;
+        absx = fabs(x);
+        norma1 += absx;
+        norma2 += x * x;
+        if(i == 0 || absx > normainf) {
+            normainf = absx;
+        }
     }
 
-    printf("\nAproximacion de e^%lf usando %d termSuces: %lf\n", x, numTerm, resultado);
+    norma2 = sqrt(norma2);
+
+    printf("\nNorma 1      = %.6lf\n", norma1);
+    printf("Norma 2      = %.6lf\n", norma2);
+    printf("Norma infinito = %.6lf\n", normainf);
 
     return 0;
 }

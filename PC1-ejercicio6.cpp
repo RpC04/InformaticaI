@@ -1,39 +1,45 @@
+#include <cmath>
+#include <math.h>
 #include <stdio.h>
 
 int main() {
-    double a[2][2], b[2];
+    double a, b, c, disc;
 
-    printf("Ingrese los coeficientes de la matriz A (2x2):\n");
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            printf("A[%d][%d]:", i+1, j+1);
-            scanf("%lf", &a[i][j]);
-        }
-    }
+    printf("Ingrese los valores de los coeficientes");
+    printf("\nAx^2:", a);
+    scanf("%lf", &a);
+    printf("Bx:", b);
+    scanf("%lf", &b);
+    printf("C:", c);
+    scanf("%lf", &c);
 
-    printf("\nIngrese el vector b:\n");
-    for(int i = 0; i < 2; i++) {
-        printf("b[%d]:", i+1);
-        scanf("%lf", &b[i]);
-    }
-
-    double det = a[0][0]*a[1][1] - a[0][1]*a[1][0];
-    double detX = b[0]*a[1][1] - a[0][1]*b[1];
-    double detY = a[0][0]*b[1] - b[0]*a[1][0];
-
-    if(det != 0) {
-        double x = detX / det;
-        double y = detY / det;
-        printf("\nSolucion:\n");
-        printf("x = %.4lf\n", x);
-        printf("y = %.4lf\n", y);
-    } else {
-        if(detX == 0 && detY == 0) {
-            printf("\nEl sistema tiene infinitas soluciones.\n");
+    if (a != 0) {
+        disc = b*b - 4*a*c;
+        if (disc != 0) {
+            if (disc > 0) {
+                double x1 = (-b + sqrt(disc)) / (2*a);
+                double x2 = (-b - sqrt(disc)) / (2*a);
+                printf("\nLas soluciones son: ");
+                printf("\nx1 = %.2f", x1);
+                printf("\nx2 = %.2f", x2);
+            } else {
+                double pReal = (-b) / (2*a);
+                double pImag = sqrt(-disc) / (2*a);
+                printf("\nLas soluciones son: ");
+                printf("\nx1 = %.2f + i %.2f", pReal, pImag);
+                printf("\nx2 = %.2f - i %.2f", pReal, pImag);
+            }
         } else {
-            printf("\nEl sistema es inconsistente.\n");
+            double x = (-b) / (2*a);
+            printf("\nLas solucion es: ");
+            printf("\nx1, x2 = %.2f", x);
         }
+    } else if (b != 0) {
+        double x = -c / b;
+        printf("\nLa solucion es: ");
+        printf("\nx1, x2 = %.2f", x);
+    } else {
+        printf("\nLa ecuacion no tiene solucion");
     }
-
     return 0;
 }
