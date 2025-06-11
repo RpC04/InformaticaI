@@ -8,7 +8,7 @@ int main() {
     double u[n], v[n], proy[n];
     double productoUV = 0, productoVV = 0;
 
-    printf("Ingrese los elementos de u y v uno a uno:\n");
+    printf("Ingrese los elementos de u y v:\n");
     for(int i = 0; i < n; i++) {
         printf("\nu[%d]: ", i);
         scanf("%lf", &u[i]);
