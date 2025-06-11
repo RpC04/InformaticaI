@@ -30,9 +30,9 @@ int invertirMatriz(int n, float A[10][20]) {
                 return 0;
             }
             for (int j = 0; j < 2 * n; j++) {
-                float temp = A[i][j];
+                float temporal = A[i][j];
                 A[i][j] = A[filaCambio][j];
-                A[filaCambio][j] = temp;
+                A[filaCambio][j] = temporal;
             }
         }
 

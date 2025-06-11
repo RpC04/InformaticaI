@@ -15,7 +15,7 @@ int main() {
         resultado += termSuce;
     }
 
-    printf("\nAproximacion de e^%lf usando %d termSuces: %lf\n", x, numTerm, resultado);
+    printf("\nAproximacion de e^%.2lf usando %d terminos: %.6lf\n", x, numTerm, resultado);
 
     return 0;
 }
