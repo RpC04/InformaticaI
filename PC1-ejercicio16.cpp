@@ -10,9 +10,9 @@ int main() {
     double producto = 0, normaU = 0, normaV = 0;
     double x, y;
 
-    printf("Ingrese los elementos de u y v uno a uno:\n");
+    printf("Ingrese los elementos de u y v:\n");
     for(int i = 0; i < n; i++) {
-        printf("u[%d]: ", i);
+        printf("\nu[%d]: ", i);
         scanf("%lf", &x);
         u[i] = x;
         printf("v[%d]: ", i);

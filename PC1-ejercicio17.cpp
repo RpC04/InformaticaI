@@ -12,7 +12,7 @@ int main() {
     printf("C: ");
     scanf("%lf", &C);
 
-    printf("Ingrese las coordenadas del punto:\n");
+    printf("\nIngrese las coordenadas del punto:\n");
     printf("x0: ");
     scanf("%lf", &x0);
     printf("y0: ");

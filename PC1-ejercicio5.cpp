@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 int main() {
-    double n1, n2, n3;
 
     int n;
     printf("Ingrese el número de coeficientes: ");

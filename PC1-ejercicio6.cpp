@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 int main() {
-    double a, b, c, disc;
+    double a, b, c;
 
     printf("Ingrese los valores de los coeficientes");
     printf("\nAx^2:", a);
@@ -14,7 +14,7 @@ int main() {
     scanf("%lf", &c);
 
     if (a != 0) {
-        disc = b*b - 4*a*c;
+        double disc = b * b - 4 * a * c;
         if (disc != 0) {
             if (disc > 0) {
                 double x1 = (-b + sqrt(disc)) / (2*a);

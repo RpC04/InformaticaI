@@ -8,7 +8,7 @@ int main() {
     double a[n];
 
     for(int i = 0; i < n; i++) {
-        printf("a[%d]: ", i+1);
+        printf("a[%d]: ", i);
         scanf("%lf", &a[i]);
     }
 

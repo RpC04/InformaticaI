@@ -3,9 +3,9 @@
 int main() {
     double u[3], v[3], w[3];
 
-    printf("Ingrese los elementos de u y v uno a uno:\n");
+    printf("Ingrese los elementos de u y v:\n");
     for(int i = 0; i < 3; i++) {
-        printf("u[%d]: ", i);
+        printf("\nu[%d]: ", i);
         scanf("%lf", &u[i]);
         printf("v[%d]: ", i);
         scanf("%lf", &v[i]);

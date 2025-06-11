@@ -3,7 +3,6 @@
 int main() {
     int n, m;
 
-
     printf("Ingrese el numero de filas de A y B: ");
     scanf("%d", &n);
     printf("Ingrese el numero de columnas de A y B: ");

@@ -3,7 +3,7 @@
 int main() {
     double limInf, limSup;
     int numRectangulos;
-    double delta, suma = 0, x_i;
+    double suma = 0;
     
     printf("Ingrese el limite inferior: ");
     scanf("%lf", &limInf);
@@ -12,10 +12,10 @@ int main() {
     printf("\nIngrese el numero de rectangulos: ");
     scanf("%d", &numRectangulos);
 
-    delta = (limSup - limInf) / numRectangulos;
+    double delta = (limSup - limInf) / numRectangulos;
 
     for (int i = 0; i < numRectangulos; i++) {
-        x_i = limInf + i * delta;
+        double x_i = limInf + i * delta;
         suma += (2*x_i*x_i + 3*x_i + 5) * delta;
     }
 

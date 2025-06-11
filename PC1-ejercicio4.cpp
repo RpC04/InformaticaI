@@ -1,37 +1,90 @@
 #include <stdio.h>
 
-int main() {
-    double a[2][2], b[2];
+int n;
+double A[10][10], b[10];
 
-    printf("Ingrese los coeficientes de la matriz A (2x2):\n");
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            printf("A[%d][%d]:", i, j);
-            scanf("%lf", &a[i][j]);
+double determinante(double M[10][10], int tam) {
+    if (tam == 1) return M[0][0];
+    if (tam == 2) return M[0][0] * M[1][1] - M[0][1] * M[1][0];
+
+    double det = 0;
+    double subM[10][10];
+
+    for (int x = 0; x < tam; x++) {
+        int subi = 0;
+        for (int i = 1; i < tam; i++) {
+            int subj = 0;
+            for (int j = 0; j < tam; j++) {
+                if (j == x) continue;
+                subM[subi][subj] = M[i][j];
+                subj++;
+            }
+            subi++;
         }
+        double signo = (x % 2 == 0) ? 1 : -1;
+        det += signo * M[0][x] * determinante(subM, tam - 1);
     }
 
-    printf("\nIngrese el vector b:\n");
-    for(int i = 0; i < 2; i++) {
-        printf("b[%d]:", i);
+    return det;
+}
+
+void copiarConColumnaModificada(double destino[10][10], int col) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            destino[i][j] = (j == col) ? b[i] : A[i][j];
+        }
+    }
+}
+
+int main() {
+    printf("Ingrese el orden del sistema (max 10): ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > 10) {
+        printf("Orden no valido.\n");
+        return 1;
+    }
+
+    printf("Ingrese la matriz A (%dx%d):\n", n, n);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
+            printf("A[%d][%d]: ", i, j);
+            scanf("%lf", &A[i][j]);
+        }
+
+    printf("Ingrese el vector b:\n");
+    for (int i = 0; i < n; i++) {
+        printf("b[%d]: ", i);
         scanf("%lf", &b[i]);
     }
 
-    double det = a[0][0]*a[1][1] - a[0][1]*a[1][0];
-    double detX = b[0]*a[1][1] - a[0][1]*b[1];
-    double detY = a[0][0]*b[1] - b[0]*a[1][0];
-
-    if(det != 0) {
-        double x = detX / det;
-        double y = detY / det;
-        printf("\nSolucion:\n");
-        printf("x = %.2lf\n", x);
-        printf("y = %.2lf\n", y);
+    double detA = determinante(A, n);
+    if (detA == 0) {
+        int todosCero = 1;
+        for (int i = 0; i < n; i++) {
+            double Ai[10][10];
+            copiarConColumnaModificada(Ai, i);
+            if (determinante(Ai, n) != 0) {
+                todosCero = 0;
+                break;
+            }
+        }
+        if (todosCero)
+            printf("\nSistema con infinitas soluciones.\n");
+        else
+            printf("\nSistema inconsistente.\n");
     } else {
-        if(detX == 0 && detY == 0) {
-            printf("\nEl sistema tiene infinitas soluciones.\n");
-        } else {
-            printf("\nEl sistema es inconsistente.\n");
+        double x[10];
+        for (int i = 0; i < n; i++) {
+            double Ai[10][10];
+            copiarConColumnaModificada(Ai, i);
+            double detAi = determinante(Ai, n);
+            x[i] = detAi / detA;
+        }
+
+        printf("\nSolucion unica:\n");
+        for (int i = 0; i < n; i++) {
+            printf("x[%d] = %.4lf\n", i, x[i]);
         }
     }
 

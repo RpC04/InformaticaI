@@ -9,7 +9,7 @@ int main() {
     double u[n], v[n], producto = 0;
     printf("Ingrese los elementos de u y v uno a uno:\n");
     for (int i = 0; i < n; i++) {
-        printf("u[%d]: ", i);
+        printf("\nu[%d]: ", i);
         scanf("%lf", &u[i]);
         printf("v[%d]: ", i);
         scanf("%lf", &v[i]);
