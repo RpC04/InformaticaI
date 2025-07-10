@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <math.h>
 
 void intercambiarFilas(int n, double matrizAumentada[n][n + 1], int fila1, int fila2)
 {
     for (int j = 0; j <= n; j++)
     {
-        double temp = matrizAumentada[fila1][j];
+        double auxiliar = matrizAumentada[fila1][j];
         matrizAumentada[fila1][j] = matrizAumentada[fila2][j];
-        matrizAumentada[fila2][j] = temp;
+        matrizAumentada[fila2][j] = auxiliar;
     }
 }
 
@@ -16,21 +17,25 @@ void intercambiarColumnas(int n, double matrizAumentada[n][n + 1], int col1, int
 {
     for (int i = 0; i < n; i++)
     {
-        double temp = matrizAumentada[i][col1];
+        double auxiliar = matrizAumentada[i][col1];
         matrizAumentada[i][col1] = matrizAumentada[i][col2];
-        matrizAumentada[i][col2] = temp;
+        matrizAumentada[i][col2] = auxiliar;
     }
 }
 
 // --- Funcion Principal de Pivoteo Total ---
-double pivoteoTotal(int n, double matrizAumentada[n][n + 1], int k, int indicesFilas[n], int indicesVariables[n]) {
-    double valorMaximo = 0.0;
+double pivoteoTotal(int dimensionMatriz, double matrizAumentada[dimensionMatriz][dimensionMatriz + 1], int k, int indicesFilas[dimensionMatriz], int indicesVariables[dimensionMatriz])
+{
+    double valorMaximo = 0;
     int filaMax = k;
     int colMax = k;
 
-    for (int i = k; i < n; i++) {
-        for (int j = k; j < n; j++) {
-            if (fabs(matrizAumentada[i][j]) > fabs(valorMaximo)) {
+    for (int i = k; i < dimensionMatriz; i++)
+    {
+        for (int j = k; j < dimensionMatriz; j++)
+        {
+            if (fabs(matrizAumentada[i][j]) > fabs(valorMaximo))
+            {
                 valorMaximo = matrizAumentada[i][j];
                 filaMax = i;
                 colMax = j;
@@ -38,22 +43,24 @@ double pivoteoTotal(int n, double matrizAumentada[n][n + 1], int k, int indicesF
         }
     }
 
-    if (fabs(valorMaximo) < 1e-9) {
-        return 0.0;
+    if (fabs(valorMaximo) < 1e-16)
+    {
+        return 0.0; // Si el valor maximo es cero, no se puede hacer pivoteo
     }
 
-    if (filaMax != k) {
-        intercambiarFilas(n, matrizAumentada, k, filaMax);
-        int temp = indicesFilas[k];
+    if (filaMax != k)
+    {
+        intercambiarFilas(dimensionMatriz, matrizAumentada, k, filaMax);
+        int auxiliar = indicesFilas[k];
         indicesFilas[k] = indicesFilas[filaMax];
-        indicesFilas[filaMax] = temp;
+        indicesFilas[filaMax] = auxiliar;
     }
 
     if (colMax != k) {
-        intercambiarColumnas(n, matrizAumentada, k, colMax);
-        int temp = indicesVariables[k];
+        intercambiarColumnas(dimensionMatriz, matrizAumentada, k, colMax);
+        int auxiliar = indicesVariables[k];
         indicesVariables[k] = indicesVariables[colMax];
-        indicesVariables[colMax] = temp;
+        indicesVariables[colMax] = auxiliar;
     }
 
     return valorMaximo;
@@ -61,23 +68,35 @@ double pivoteoTotal(int n, double matrizAumentada[n][n + 1], int k, int indicesF
 
 // --- Funciones para Entrada/Salida ---
 
-int leerDimension()
-{
-    int valor;
-    while (1)
-    {
-        if (scanf("%d", &valor) == 1 && valor > 0)
-        {
-            break;
+int leerDimension() {
+    int dimension;
+    char extra;
+    
+    while (true) { 
+        scanf("%d%c", &dimension, &extra);
+        // Verificar si la entrada es un numero natural y no excede 9 digitos
+        if (extra == '\n' && dimension > 0 && dimension < 999999999) {
+            return dimension;
         }
-        else
-        {
-            printf("Error: debe ingresar un numero entero y que sea mayor que 0.\nIngrese un numero que sea mayor que 0: ");
-            while (getchar() != '\n')
-                ; // Limpiar el buffer
-        }
+        
+        printf("Ingrese solo numeros naturales (max 9 digitos): ");
+        while (getchar() != '\n');
     }
-    return valor;
+}
+
+double leerDouble() {
+    double numero;
+    char extra;
+    
+    while (true) {
+        scanf("%lf%c", &numero, &extra);
+        if (extra == '\n') {
+            return numero;
+        }
+        
+        printf("Ingrese un numero valido: ");
+        while (getchar() != '\n');
+    }
 }
 
 void leerMatriz(int filas, int columnas, double matrizAumentada[filas][columnas + 1])
@@ -89,10 +108,10 @@ void leerMatriz(int filas, int columnas, double matrizAumentada[filas][columnas 
         for (int j = 0; j < columnas; j++)
         {
             printf("A[%d][%d]: ", i + 1, j + 1);
-            scanf("%lf", &matrizAumentada[i][j]);
+            matrizAumentada[i][j] = leerDouble();
         }
         printf("Termino independiente b[%d]: ", i + 1);
-        scanf("%lf", &matrizAumentada[i][columnas]);
+        matrizAumentada[i][columnas] = leerDouble();
     }
 }
 
@@ -100,84 +119,81 @@ void imprimirMatriz(int n, double matrizAumentada[n][n + 1])
 {
     for (int i = 0; i < n; i++)
     {
-        printf("| ");
+        printf("[ ");
         for (int j = 0; j <= n; j++)
         {
-            printf("%8.3f\t", matrizAumentada[i][j]);
+            printf("%12.10f\t", matrizAumentada[i][j]);
         }
-        printf("|\n");
+        printf("]\n");
     }
 }
 
 // --- Programa Principal ---
 int main()
 {
-    int n;
-    double pivoteActual;
-
-    printf("=============================================");
-    printf("\nPrograma para resolver un sistema de ecuaciones lineales\n");
-    printf("con Eliminacion Gaussiana y Pivoteo Total\n");
-    printf("=============================================\n");
+    int dimensionMatriz;
+    double pivoteActual; 
 
     printf("Ingrese el numero de ecuaciones (N): ");
-    n = leerDimension();
+    dimensionMatriz = leerDimension();
 
     // Declaraciones con double y array para indices de filas
-    double matrizAumentada[n][n + 1];
-    int indicesFilas[n];
-    int indicesVariables[n];
-    double solucionesPermutadas[n];
-    double solucionFinal[n];
+    double matrizAumentada[dimensionMatriz][dimensionMatriz + 1];
+    int indicesFilas[dimensionMatriz];
+    int indicesVariables[dimensionMatriz];
+    double solucionesPermutadas[dimensionMatriz];
+    double solucionFinal[dimensionMatriz];
 
-    leerMatriz(n, n, matrizAumentada);
+    leerMatriz(dimensionMatriz, dimensionMatriz, matrizAumentada);
 
     // Inicializar ambos arrays de indices
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < dimensionMatriz; i++)
     {
         indicesFilas[i] = i;
         indicesVariables[i] = i;
     }
 
     // Bucle principal de Eliminacion Gaussiana con Pivoteo Total
-    for (int k = 0; k < n; k++)
+    for (int k = 0; k < dimensionMatriz; k++)
     {
         printf("\nPaso %d: Antes del pivoteo total\n", k);
-        imprimirMatriz(n, matrizAumentada);
+        imprimirMatriz(dimensionMatriz, matrizAumentada);
 
         // Se pasan ambos arrays de indices a la funcion
-        pivoteActual = pivoteoTotal(n, matrizAumentada, k, indicesFilas, indicesVariables);
+        pivoteActual = pivoteoTotal(dimensionMatriz, matrizAumentada, k, indicesFilas, indicesVariables);
 
-        if (fabs(pivoteActual) < 1e-9)
+        if (fabs(pivoteActual) < 1e-16)
         {
             printf("Advertencia: El sistema puede ser singular o mal condicionado. Pivote cercano a cero en paso %d.\n", k);
             return 1;
         }
 
         printf("\nPaso %d: Despues del pivoteo total (pivote elegido = %.3f)\n", k, pivoteActual);
-        imprimirMatriz(n, matrizAumentada);
+        imprimirMatriz(dimensionMatriz, matrizAumentada);
         printf("Orden de filas actualizado: ");
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < dimensionMatriz; i++)
+        {
             printf("x%d ", indicesFilas[i] + 1);
         }
         printf("\n");
 
         printf("Orden de variables actualizado: ");
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < dimensionMatriz; i++)
+        {
             printf("y%d ", indicesVariables[i] + 1);
         }
         printf("\n");
 
         if (fabs(matrizAumentada[k][k]) < 1e-9)
         {
-            printf("Error critico: Division por cero inesperada en A[%d][%d] durante la eliminacion.\n", k, k);
+            printf("Division por cero inesperada en A[%d][%d] durante la eliminacion.\n", k, k);
             return 1;
         }
 
-        for (int i = k + 1; i < n; i++)
+        for (int i = k + 1; i < dimensionMatriz; i++)
         {
             double factor = matrizAumentada[i][k] / matrizAumentada[k][k];
-            for (int j = k; j <= n; j++)
+            for (int j = k; j <= dimensionMatriz; j++)
             {
                 matrizAumentada[i][j] = matrizAumentada[i][j] - factor * matrizAumentada[k][j];
             }
@@ -185,13 +201,13 @@ int main()
     }
 
     printf("\nMatriz triangular superior final:\n");
-    imprimirMatriz(n, matrizAumentada);
+    imprimirMatriz(dimensionMatriz, matrizAumentada);
 
     // --- Sustitucion hacia atras ---
-    for (int i = n - 1; i >= 0; i--)
+    for (int i = dimensionMatriz - 1; i >= 0; i--)
     {
-        double suma = 0.0;
-        for (int j = i + 1; j < n; j++)
+        double suma = 0;
+        for (int j = i + 1; j < dimensionMatriz; j++)
         {
             suma += matrizAumentada[i][j] * solucionesPermutadas[j];
         }
@@ -200,19 +216,19 @@ int main()
             printf("Error: Division por cero durante la sustitucion hacia atras.\n");
             return 1;
         }
-        solucionesPermutadas[i] = (matrizAumentada[i][n] - suma) / matrizAumentada[i][i];
+        solucionesPermutadas[i] = (matrizAumentada[i][dimensionMatriz] - suma) / matrizAumentada[i][i];
     }
 
     // --- Reordenar la solucion a su orden original ---
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < dimensionMatriz; i++)
     {
         solucionFinal[indicesVariables[i]] = solucionesPermutadas[i];
     }
 
     printf("\nSolucion del sistema:\n");
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < dimensionMatriz; i++)
     {
-        printf("x%d = %20.9f\n", i + 1, solucionFinal[i]);
+        printf("x%d = %.10f\n", i + 1, solucionFinal[i]);
     }
 
     return 0;
